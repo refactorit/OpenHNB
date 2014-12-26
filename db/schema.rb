@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226130116) do
+ActiveRecord::Schema.define(version: 20141226131654) do
 
   create_table "currencies", force: :cascade do |t|
     t.string   "country"
@@ -20,5 +20,18 @@ ActiveRecord::Schema.define(version: 20141226130116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "rates", force: :cascade do |t|
+    t.integer  "currency_id"
+    t.integer  "unit"
+    t.float    "buy"
+    t.float    "mean"
+    t.float    "sell"
+    t.date     "date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "rates", ["currency_id"], name: "index_rates_on_currency_id"
 
 end

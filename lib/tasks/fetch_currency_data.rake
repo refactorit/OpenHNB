@@ -14,10 +14,13 @@ namespace :currency_data do
           Currency.all.each do |currency|
             if line.include?(currency.code) && line.upcase.include?(currency.name)
               line_components = line.split(/\s+/)
-              high = line_components[-1]
+              sell = line_components[-1]
               middle = line_components[-2]
-              low = line_components[-3]
-              puts "#{currency.name}: #{low} #{middle} #{high}"
+              buy = line_components[-3]
+              unit = line_components[-4]
+              rate = currency.rates.find_or_initialize_by date: start_date
+              rate.assign_attributes unit: unit, sell: sell, buy: buy, unit: unit
+              rate.save
             end
           end
         end
