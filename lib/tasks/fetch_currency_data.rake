@@ -11,12 +11,14 @@ namespace :currency_data do
 
       if response.code == 200
         response.body.each_line do |line|
-          if line.include?("840") && line.upcase.include?("USD")
-            line_components = line.split(/\s+/)
-            high = line_components[-1]
-            middle = line_components[-2]
-            low = line_components[-3]
-            puts "#{low} #{middle} #{high}"
+          Currency.all.each do |currency|
+            if line.include?(currency.code) && line.upcase.include?(currency.name)
+              line_components = line.split(/\s+/)
+              high = line_components[-1]
+              middle = line_components[-2]
+              low = line_components[-3]
+              puts "#{currency.name}: #{low} #{middle} #{high}"
+            end
           end
         end
       end
