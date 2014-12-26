@@ -19,7 +19,7 @@ namespace :currency_data do
               buy = line_components[-3]
               unit = line_components[-4]
               rate = currency.rates.find_or_initialize_by date: start_date
-              rate.assign_attributes unit: unit, sell: sell, buy: buy, unit: unit
+              rate.assign_attributes unit: unit, sell: sell, buy: buy, mean: mean
               rate.save
             end
           end
